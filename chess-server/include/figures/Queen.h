@@ -2,6 +2,8 @@
 
 #include "Figure.h"
 
+namespace Chess {
+
 class Queen : public Figure {
 public:
     Queen(const GameObject::ObjectId& id,
@@ -9,3 +11,5 @@ public:
           uint32_t row = 0,
           uint32_t column = 0);
 };
+
+}

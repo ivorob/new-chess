@@ -2,6 +2,8 @@
 
 #include "GameObject.h"
 
+namespace Chess {
+
 class Figure : public GameObject {
 public:
     typedef enum {
@@ -30,3 +32,5 @@ private:
     uint32_t column;
     Color color;
 };
+
+}

@@ -12,10 +12,18 @@ SET (SOURCES
         ${SRC_DIR}/MemoryStreamTest.cpp
         ${SRC_DIR}/GameObjectTest.cpp
         ${SRC_DIR}/FigureTest.cpp
+        ${SRC_DIR}/FiguresTest.cpp
         # MAIN SOURCES
         ${MAIN_SRC_DIR}/MemoryStream.cpp
         ${MAIN_SRC_DIR}/GameObject.cpp
         ${MAIN_SRC_DIR}/Figure.cpp
+        # figures
+        ${MAIN_SRC_DIR}/figures/Bishop.cpp
+        ${MAIN_SRC_DIR}/figures/King.cpp
+        ${MAIN_SRC_DIR}/figures/Knight.cpp
+        ${MAIN_SRC_DIR}/figures/Pawn.cpp
+        ${MAIN_SRC_DIR}/figures/Queen.cpp
+        ${MAIN_SRC_DIR}/figures/Rook.cpp
     )
 
 ADD_SUBDIRECTORY (

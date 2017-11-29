@@ -1,6 +1,6 @@
 #include "Figure.h"
 
-Figure::Figure(const GameObject::ObjectId& id,
+Chess::Figure::Figure(const GameObject::ObjectId& id,
                const std::string& classId,
                uint32_t row,
                uint32_t column,
@@ -13,43 +13,43 @@ Figure::Figure(const GameObject::ObjectId& id,
 }
 
 uint32_t
-Figure::getRow() const
+Chess::Figure::getRow() const
 {
     return this->row;
 }
 
 void
-Figure::setRow(uint32_t row)
+Chess::Figure::setRow(uint32_t row)
 {
     this->row = row;
 }
 
 uint32_t
-Figure::getColumn() const
+Chess::Figure::getColumn() const
 {
     return this->column;
 }
 
 void
-Figure::setColumn(uint32_t column)
+Chess::Figure::setColumn(uint32_t column)
 {
     this->column = column;
 }
 
-Figure::Color
-Figure::getColor() const
+Chess::Figure::Color
+Chess::Figure::getColor() const
 {
     return this->color;
 }
 
 void
-Figure::setColor(Figure::Color color)
+Chess::Figure::setColor(Chess::Figure::Color color)
 {
     this->color = color;
 }
 
 void
-Figure::write(MemoryStream& stream)
+Chess::Figure::write(MemoryStream& stream)
 {
     GameObject::write(stream);
     stream.write(getRow());
