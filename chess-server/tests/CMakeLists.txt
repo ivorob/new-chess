@@ -13,10 +13,12 @@ SET (SOURCES
         ${SRC_DIR}/GameObjectTest.cpp
         ${SRC_DIR}/FigureTest.cpp
         ${SRC_DIR}/FiguresTest.cpp
+        ${SRC_DIR}/BoardTest.cpp
         # MAIN SOURCES
         ${MAIN_SRC_DIR}/MemoryStream.cpp
         ${MAIN_SRC_DIR}/GameObject.cpp
         ${MAIN_SRC_DIR}/Figure.cpp
+        ${MAIN_SRC_DIR}/Board.cpp
         # figures
         ${MAIN_SRC_DIR}/figures/Bishop.cpp
         ${MAIN_SRC_DIR}/figures/King.cpp

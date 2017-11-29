@@ -1,0 +1,38 @@
+** uint32
+
+offset   |   size   |  value
+---------------------------------
+0x00     |    1     | type (0x00)
+0x01     |    4     | value
+
+
+** string
+
+offset   |   size   |  value
+---------------------------------
+0x00     |    1     | type (0x01)
+0x01     |    4     | length
+0x05     |  length  | value
+
+
+** game object
+
+- uint32 (id)
+- string (classId)
+
+
+** figure
+
+- game object
+- row (uint32)
+- column (uint32)
+- color (uint32)
+
+
+** board
+
+- game object
+- rows (uint32)
+- column (uint32)
+- count (uint32)
+- figures [0..count]

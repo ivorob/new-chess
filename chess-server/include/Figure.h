@@ -26,7 +26,7 @@ public:
     Color getColor() const;
     void setColor(Color color);
 
-    void write(MemoryStream& stream) override;
+    void write(MemoryStream& stream) const override;
 private:
     uint32_t row;
     uint32_t column;

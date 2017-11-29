@@ -15,7 +15,7 @@ public:
     const ObjectId& getId() const;
     const std::string& getClassId() const;
 
-    virtual void write(MemoryStream& stream);
+    virtual void write(MemoryStream& stream) const;
 private:
     ObjectId id;
     std::string classId;

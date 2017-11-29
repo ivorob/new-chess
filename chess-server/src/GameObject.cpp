@@ -19,7 +19,7 @@ GameObject::getClassId() const
 }
 
 void
-GameObject::write(MemoryStream& stream)
+GameObject::write(MemoryStream& stream) const
 {
     stream.write(getId());
     stream.write(getClassId());

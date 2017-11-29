@@ -49,7 +49,7 @@ Chess::Figure::setColor(Chess::Figure::Color color)
 }
 
 void
-Chess::Figure::write(MemoryStream& stream)
+Chess::Figure::write(MemoryStream& stream) const
 {
     GameObject::write(stream);
     stream.write(getRow());
