@@ -4,8 +4,8 @@ PROJECT (chess-server-tests)
 STRING (REGEX REPLACE "/MDd" "/MTd" CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 
 SET (SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/)
-SET (MAIN_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../src)
-SET (MAIN_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../include)
+SET (COMMON_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../common/src)
+SET (COMMON_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../common/include)
 
 SET (SOURCES
         ${SRC_DIR}/tests.cpp
@@ -14,18 +14,18 @@ SET (SOURCES
         ${SRC_DIR}/FigureTest.cpp
         ${SRC_DIR}/FiguresTest.cpp
         ${SRC_DIR}/BoardTest.cpp
-        # MAIN SOURCES
-        ${MAIN_SRC_DIR}/MemoryStream.cpp
-        ${MAIN_SRC_DIR}/GameObject.cpp
-        ${MAIN_SRC_DIR}/Figure.cpp
-        ${MAIN_SRC_DIR}/Board.cpp
+        # COMMON SOURCES
+        ${COMMON_SRC_DIR}/MemoryStream.cpp
+        ${COMMON_SRC_DIR}/GameObject.cpp
+        ${COMMON_SRC_DIR}/Figure.cpp
+        ${COMMON_SRC_DIR}/Board.cpp
         # figures
-        ${MAIN_SRC_DIR}/figures/Bishop.cpp
-        ${MAIN_SRC_DIR}/figures/King.cpp
-        ${MAIN_SRC_DIR}/figures/Knight.cpp
-        ${MAIN_SRC_DIR}/figures/Pawn.cpp
-        ${MAIN_SRC_DIR}/figures/Queen.cpp
-        ${MAIN_SRC_DIR}/figures/Rook.cpp
+        ${COMMON_SRC_DIR}/figures/Bishop.cpp
+        ${COMMON_SRC_DIR}/figures/King.cpp
+        ${COMMON_SRC_DIR}/figures/Knight.cpp
+        ${COMMON_SRC_DIR}/figures/Pawn.cpp
+        ${COMMON_SRC_DIR}/figures/Queen.cpp
+        ${COMMON_SRC_DIR}/figures/Rook.cpp
     )
 
 ADD_SUBDIRECTORY (
@@ -33,5 +33,5 @@ ADD_SUBDIRECTORY (
     ${CMAKE_CURRENT_BINARY_DIR}/thirdparty/googletest)
 
 ADD_EXECUTABLE (chess-server-tests ${SOURCES})
-TARGET_INCLUDE_DIRECTORIES (chess-server-tests PRIVATE ${MAIN_INCLUDE_DIR})
+TARGET_INCLUDE_DIRECTORIES (chess-server-tests PRIVATE ${COMMON_INCLUDE_DIR})
 TARGET_LINK_LIBRARIES (chess-server-tests gtest)
