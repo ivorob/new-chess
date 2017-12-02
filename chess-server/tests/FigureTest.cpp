@@ -76,3 +76,17 @@ TEST(FigureTest, write)
     ASSERT_EQ(buffer, data);
 }
 
+TEST(FigureTest, read)
+{
+    std::string buffer("\x00\x87\x00\x00\x00\x01\x03\x00\x00\x00" "ABC\x00\x04\x00\x00\x00\x00\x06\x00\x00\x00\x00\x01\x00\x00\x00", 28);
+    MemoryStream stream(buffer);
+
+    Chess::Figure figure;
+    figure.read(stream);
+
+    ASSERT_EQ(0x87, figure.getId());
+    ASSERT_EQ("ABC", figure.getClassId());
+    ASSERT_EQ(4, figure.getRow());
+    ASSERT_EQ(6, figure.getColumn());
+    ASSERT_EQ(Chess::Figure::Color::Black, figure.getColor());
+}

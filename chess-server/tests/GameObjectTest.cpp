@@ -23,3 +23,24 @@ TEST(GameObjectTest, write)
     gameObject.write(stream);
     ASSERT_EQ(buffer, data);
 }
+
+TEST(GameObjectTest, read)
+{
+    std::string buffer("\x00\x02\x00\x00\x00\x01\x04\x00\x00\x00" "ROOK", 14);
+    MemoryStream stream(buffer);
+
+    GameObject gameObject;
+    gameObject.read(stream);
+
+    ASSERT_EQ(2, gameObject.getId());
+    ASSERT_EQ("ROOK", gameObject.getClassId());
+
+    std::string buffer1("\x01\x02\x00\x00\x01\x01\x04\x00\x00\x00" "ROOK", 14);
+    MemoryStream stream1(buffer1);
+
+    try {
+        gameObject.read(stream1);
+        FAIL() << "Exception must be present!";
+    } catch (const std::runtime_error&) {
+    }
+}

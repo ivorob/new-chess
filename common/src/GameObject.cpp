@@ -1,5 +1,10 @@
 #include "GameObject.h"
 
+GameObject::GameObject()
+    : id()
+{
+}
+
 GameObject::GameObject(const ObjectId& id, const std::string& classId)
     : id(id),
       classId(classId)
@@ -23,4 +28,11 @@ GameObject::write(MemoryStream& stream) const
 {
     stream.write(getId());
     stream.write(getClassId());
+}
+
+void
+GameObject::read(MemoryStream& stream)
+{
+    this->id = stream.readUint32();
+    this->classId = stream.readString();
 }

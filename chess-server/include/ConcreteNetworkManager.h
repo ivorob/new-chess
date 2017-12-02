@@ -13,6 +13,9 @@ public:
 
     void sendPacket(const std::string& packet) override;
     void sendReplicationPacket(const GameObject& gameObject) override;
+    void sendHeloPacket(const std::string& clientId) override;
+    void sendStatePacket() override;
+
     void Release();
 private:
     PacketQueue& inQueue;

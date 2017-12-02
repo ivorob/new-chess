@@ -12,6 +12,14 @@ Chess::Figure::Figure(const GameObject::ObjectId& id,
 {
 }
 
+Chess::Figure::Figure()
+    : GameObject(),
+      row(),
+      column(),
+      color(Color::White)
+{
+}
+
 uint32_t
 Chess::Figure::getRow() const
 {
@@ -55,4 +63,13 @@ Chess::Figure::write(MemoryStream& stream) const
     stream.write(getRow());
     stream.write(getColumn());
     stream.write(getColor());
+}
+
+void
+Chess::Figure::read(MemoryStream& stream)
+{
+    GameObject::read(stream);
+    this->row = stream.readUint32();
+    this->column = stream.readUint32();
+    this->color = static_cast<Color>(stream.readUint32());
 }

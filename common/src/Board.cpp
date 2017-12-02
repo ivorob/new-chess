@@ -1,6 +1,12 @@
 #include <algorithm>
 #include "Board.h"
 
+Chess::Board::Board()
+    : rows(),
+      columns()
+{
+}
+
 Chess::Board::Board(uint32_t rows, uint32_t columns)
     : GameObject(0, "BOARD"),
       rows(rows),
@@ -65,6 +71,21 @@ Chess::Board::write(MemoryStream& stream) const
 
     for (const auto& figure : this->figures) {
         figure.write(stream);
+    }
+}
+
+void
+Chess::Board::read(MemoryStream& stream)
+{
+    GameObject::read(stream);
+    this->rows = stream.readUint32();
+    this->columns = stream.readUint32();
+    uint32_t size = stream.readUint32();
+
+    for (uint32_t i = 0; i < size; ++i) {
+        Chess::Figure figure;
+        figure.read(stream);
+        addFigure(figure);
     }
 }
 

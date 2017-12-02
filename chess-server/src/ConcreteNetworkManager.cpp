@@ -35,7 +35,29 @@ void
 ConcreteNetworkManager::sendReplicationPacket(const GameObject& gameObject)
 {
     MemoryStream stream;
-    stream.write(PacketType::REPLICATION);
+    stream.writeByte(PacketType::REPLICATION);
     gameObject.write(stream);
+
+    sendPacket(stream.getData());
+}
+
+void
+ConcreteNetworkManager::sendHeloPacket(const std::string& clientId)
+{
+    MemoryStream stream;
+    stream.writeByte(PacketType::HELO);
+
+    if (!clientId.empty()) {
+        stream.write(clientId);
+    }
+    sendPacket(stream.getData());
+}
+
+void
+ConcreteNetworkManager::sendStatePacket()
+{
+    MemoryStream stream;
+    stream.writeByte(PacketType::STATE);
+
     sendPacket(stream.getData());
 }

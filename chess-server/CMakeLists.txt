@@ -6,9 +6,10 @@ SET (COMMON_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../common/src)
 
 SET (SOURCES
         # common code
-        ${COMMON_SRC_DIR}/Figure.cpp
         ${COMMON_SRC_DIR}/MemoryStream.cpp
         ${COMMON_SRC_DIR}/GameObject.cpp
+        ${COMMON_SRC_DIR}/Board.cpp
+        ${COMMON_SRC_DIR}/Figure.cpp
         ${COMMON_SRC_DIR}/figures/Bishop.cpp
         ${COMMON_SRC_DIR}/figures/King.cpp
         ${COMMON_SRC_DIR}/figures/Knight.cpp

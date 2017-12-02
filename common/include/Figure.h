@@ -11,6 +11,7 @@ public:
         Black,
     } Color;
 public:
+    Figure();
     Figure(const GameObject::ObjectId& id,
            const std::string& classId,
            uint32_t row = 0,
@@ -27,6 +28,7 @@ public:
     void setColor(Color color);
 
     void write(MemoryStream& stream) const override;
+    void read(MemoryStream& stream) override;
 private:
     uint32_t row;
     uint32_t column;

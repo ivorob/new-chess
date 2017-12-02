@@ -9,6 +9,7 @@ namespace Chess {
 
 class Board : public GameObject {
 public:
+    Board();
     Board(uint32_t rows, uint32_t columns);
 
     uint32_t getRows() const;
@@ -18,6 +19,7 @@ public:
     void addFigure(const Figure& figure);
 
     void write(MemoryStream& stream) const override;
+    void read(MemoryStream& stream) override;
 private:
     uint32_t rows;
     uint32_t columns;

@@ -2,11 +2,14 @@ CMAKE_MINIMUM_REQUIRED (VERSION 3.5)
 PROJECT (chess-client)
 
 SET (SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
-SET (SOURCES
-        ${SRC_DIR}/main.cpp)
-
 SET (COMMON_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../common/src)
 SET (COMMON_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../common/include)
+
+SET (SOURCES
+        ${SRC_DIR}/main.cpp
+        # Common
+        ${COMMON_SRC_DIR}/MemoryStream.cpp
+    )
 
 SET (CMAKE_AUTOMOC ON)
 SET (CMAKE_AUTORCC ON)
