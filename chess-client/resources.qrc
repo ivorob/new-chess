@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/Board.qml</file>
+        <file>qml/Piece.qml</file>
         <file>qml/Constants.js</file>
+        <file>fonts/DiagramTTAlpha2.ttf</file>
     </qresource>
 </RCC>

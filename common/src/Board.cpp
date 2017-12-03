@@ -1,5 +1,6 @@
 #include <algorithm>
 #include "Board.h"
+#include "Figures.h"
 
 Chess::Board::Board()
     : rows(),
@@ -93,4 +94,47 @@ Chess::Board::read(MemoryStream& stream)
 Chess::BoardException::BoardException(const std::string& what)
     : std::exception(what.c_str())
 {
+}
+
+Chess::Board
+Chess::createBoard()
+{
+    Chess::Board board(8, 8);
+
+    uint32_t id = 0;
+
+    // white figures
+    for (uint32_t i = 0; i < 8; ++i) {
+        board.addFigure(Chess::Pawn(++id, Chess::Figure::Color::White, 1, i));
+    }
+
+    board.addFigure(Chess::Rook(++id, Chess::Figure::Color::White, 0, 0));
+    board.addFigure(Chess::Rook(++id, Chess::Figure::Color::White, 0, 7));
+
+    board.addFigure(Chess::Knight(++id, Chess::Figure::Color::White, 0, 1));
+    board.addFigure(Chess::Knight(++id, Chess::Figure::Color::White, 0, 6));
+
+    board.addFigure(Chess::Bishop(++id, Chess::Figure::Color::White, 0, 2));
+    board.addFigure(Chess::Bishop(++id, Chess::Figure::Color::White, 0, 5));
+
+    board.addFigure(Chess::Queen(++id, Chess::Figure::Color::White, 0, 3));
+    board.addFigure(Chess::King(++id, Chess::Figure::Color::White, 0, 4));
+
+    for (uint32_t i = 0; i < 8; ++i) {
+        board.addFigure(Chess::Pawn(++id, Chess::Figure::Color::Black, 6, i));
+    }
+
+    board.addFigure(Chess::Rook(++id, Chess::Figure::Color::Black, 7, 0));
+    board.addFigure(Chess::Rook(++id, Chess::Figure::Color::Black, 7, 7));
+
+    board.addFigure(Chess::Knight(++id, Chess::Figure::Color::Black, 7, 1));
+    board.addFigure(Chess::Knight(++id, Chess::Figure::Color::Black, 7, 6));
+
+    board.addFigure(Chess::Bishop(++id, Chess::Figure::Color::Black, 7, 2));
+    board.addFigure(Chess::Bishop(++id, Chess::Figure::Color::Black, 7, 5));
+
+    board.addFigure(Chess::Queen(++id, Chess::Figure::Color::Black, 7, 3));
+    board.addFigure(Chess::King(++id, Chess::Figure::Color::Black, 7, 4));
+
+    return board;
 }

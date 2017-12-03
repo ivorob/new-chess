@@ -24,6 +24,10 @@ Item {
     }
 
     function getLetter(index) {
+        if (!game.pieces) {
+            return ' ';
+        }
+
         var letter = game.pieces[index];
         var res = letter;
         if (letter === 'b') {
@@ -32,6 +36,11 @@ Item {
             res = 'L';
         }
         return res;
+    }
+
+    FontLoader {
+        id: chessFont
+        source: "qrc:/fonts/" + Constants.CHESS_FONT;
     }
 
     Grid {
@@ -99,14 +108,14 @@ Item {
 
             model: Constants.BOARD_SIZE * Constants.BOARD_SIZE
 
-            /*Piece {
+            Piece {
                 id: piece
 
                 cellSize: cellGrid.cellSize
                 whiteSide: isWhiteSide(index)
                 letter: getLetter(index)
                 pieceIndex: index
-            }*/
+            }
 
         }
 

@@ -23,6 +23,7 @@ public:
 private:
     uint32_t rows;
     uint32_t columns;
+protected:
     std::vector<Figure> figures;
 };
 
@@ -30,5 +31,7 @@ class BoardException : public std::exception {
 public:
     BoardException(const std::string& what);
 };
+
+Board createBoard();
 
 }

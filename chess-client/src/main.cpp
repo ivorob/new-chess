@@ -7,8 +7,12 @@
 
 #include "ChessServer.h"
 #include "NetworkManager.h"
+#include "ClientBoard.h"
+#include "GameController.h"
 
 namespace {
+
+Client::Chess::Board board;
 
 void clientMain() {
     NetworkManager *networkManager = requestNetworkManager();
@@ -26,7 +30,7 @@ void clientMain() {
                         networkManager->sendStatePacket();
                         break;
                     case PacketType::REPLICATION:
-                        std::cout << "Replication" << std::endl;
+                        board.read(stream);
                         break;
                 }
             } catch (const std::exception&) {
@@ -47,7 +51,11 @@ int main(int argc, char *argv[])
     std::thread thread(clientMain);
     thread.detach();
 
+    GameController *gameController = new GameController;
+    QObject::connect(&board, SIGNAL(boardChanged(const QString&)), gameController, SLOT(setPieces(const QString&)));
+
     QQuickView view;
+    view.rootContext()->setContextProperty("game", gameController);
     view.setSource(QUrl(QStringLiteral("qrc:/qml/Board.qml")));
 
     auto container = QWidget::createWindowContainer(&view);

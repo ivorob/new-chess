@@ -23,7 +23,7 @@ serverMain()
         std::string packet = networkManager.receivePacket();
         switch (packet[0]) {
             case PacketType::HELO:
-                clients.push_back(Chess::Board(8, 8));
+                clients.push_back(Chess::createBoard());
 
                 networkManager.sendHeloPacket(std::to_string(clientId));
                 break;

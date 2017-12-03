@@ -7,8 +7,19 @@ SET (COMMON_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../common/include)
 
 SET (SOURCES
         ${SRC_DIR}/main.cpp
+        ${SRC_DIR}/GameController.cpp
+        ${SRC_DIR}/ClientBoard.cpp
         # Common
         ${COMMON_SRC_DIR}/MemoryStream.cpp
+        ${COMMON_SRC_DIR}/GameObject.cpp
+        ${COMMON_SRC_DIR}/Figure.cpp
+        ${COMMON_SRC_DIR}/Board.cpp
+        ${COMMON_SRC_DIR}/figures/Bishop.cpp
+        ${COMMON_SRC_DIR}/figures/King.cpp
+        ${COMMON_SRC_DIR}/figures/Knight.cpp
+        ${COMMON_SRC_DIR}/figures/Pawn.cpp
+        ${COMMON_SRC_DIR}/figures/Queen.cpp
+        ${COMMON_SRC_DIR}/figures/Rook.cpp
     )
 
 SET (CMAKE_AUTOMOC ON)
