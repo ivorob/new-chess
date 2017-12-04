@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <iostream>
 #include "ClientBoard.h"
 
@@ -11,10 +12,12 @@ Client::Chess::Board::read(MemoryStream& stream)
 {
     ::Chess::Board::read(stream);
 
-    updateState();
+    if (updateState()) {
+        emit boardChangedFromServer(this->state);
+    }
 }
 
-void
+bool 
 Client::Chess::Board::updateState()
 {
     QString newState;
@@ -35,6 +38,43 @@ Client::Chess::Board::updateState()
 
     if (reverseState != this->state) {
         this->state = reverseState;
-        emit boardChanged(this->state);
+        return true;
     }
+
+    return false;
+}
+
+void
+Client::Chess::Board::moveFigure(
+    uint32_t rowFrom,
+    uint32_t columnFrom,
+    uint32_t rowTo,
+    uint32_t columnTo)
+{
+    try {
+        ::Chess::Figure& figure = getByPosition(rowFrom, columnFrom);
+        figure.setRow(rowTo);
+        figure.setColumn(columnTo);
+
+        updateState();
+        qDebug() << "update figure: " << QString(figure.getId());
+        emit boardChangedFromClient(figure.getId());
+    } catch (const std::runtime_error& error) {
+        qDebug() << error.what();
+    }
+}
+
+Chess::Figure&
+Client::Chess::Board::getByPosition(uint32_t row, uint32_t column)
+{
+    for (auto& figure : this->figures) {
+        if (figure.getRow() == row &&
+            figure.getColumn() == column)
+        {
+            return figure;
+        }
+    }
+
+    throw std::runtime_error("Figure with position [" + std::to_string(row) 
+            + "; " + std::to_string(column) + " isn't found!");
 }

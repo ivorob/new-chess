@@ -1,62 +1,30 @@
 #include <QApplication>
 #include <QQuickView>
+#include <QQuickItem>
 #include <QWidget>
 #include <QQmlContext>
+#include <QQmlEngine>
+#include <QJSValueIterator>
 #include <iostream>
 #include <thread>
 
-#include "ChessServer.h"
-#include "NetworkManager.h"
-#include "ClientBoard.h"
+#include "ChessClient.h"
 #include "GameController.h"
-
-namespace {
-
-Client::Chess::Board board;
-
-void clientMain() {
-    NetworkManager *networkManager = requestNetworkManager();
-    if (networkManager != nullptr) {
-        networkManager->sendHeloPacket();
-
-        while (1) {
-            std::string packet = networkManager->receivePacket();
-            MemoryStream stream(packet);
-
-            try {
-                switch (stream.readByte()) {
-                    case PacketType::HELO:
-                        std::cout << "Client id: " <<  stream.readString() << std::endl;
-                        networkManager->sendStatePacket();
-                        break;
-                    case PacketType::REPLICATION:
-                        board.read(stream);
-                        break;
-                }
-            } catch (const std::exception&) {
-            }
-        }
-
-        networkManager->Release();
-    }
-
-}
-
-}
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    std::thread thread(clientMain);
+    Chess::Client client;
+    std::thread thread(&Chess::Client::serverHandler, &client);
     thread.detach();
 
-    GameController *gameController = new GameController;
-    QObject::connect(&board, SIGNAL(boardChanged(const QString&)), gameController, SLOT(setPieces(const QString&)));
+    GameController gameController(client.getBoard());
 
     QQuickView view;
-    view.rootContext()->setContextProperty("game", gameController);
+    view.rootContext()->setContextProperty("game", &gameController);
     view.setSource(QUrl(QStringLiteral("qrc:/qml/Board.qml")));
+    gameController.setRootObject(view.rootObject());
 
     auto container = QWidget::createWindowContainer(&view);
     container->setMinimumSize(640, 640);

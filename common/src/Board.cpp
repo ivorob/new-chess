@@ -78,6 +78,8 @@ Chess::Board::write(MemoryStream& stream) const
 void
 Chess::Board::read(MemoryStream& stream)
 {
+    this->figures.clear();
+
     GameObject::read(stream);
     this->rows = stream.readUint32();
     this->columns = stream.readUint32();

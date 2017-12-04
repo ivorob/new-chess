@@ -7,6 +7,7 @@ SET (COMMON_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../common/include)
 
 SET (SOURCES
         ${SRC_DIR}/main.cpp
+        ${SRC_DIR}/ChessClient.cpp
         ${SRC_DIR}/GameController.cpp
         ${SRC_DIR}/ClientBoard.cpp
         # Common

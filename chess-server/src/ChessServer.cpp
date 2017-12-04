@@ -30,6 +30,9 @@ serverMain()
             case PacketType::STATE:
                 networkManager.sendReplicationPacket(clients[0]);
                 break;
+            case PacketType::REPLICATION:
+                networkManager.sendReplicationPacket(clients[0]);
+                break;
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(100));

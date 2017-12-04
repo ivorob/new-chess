@@ -13,6 +13,13 @@ Item {
     width: cellSize
     height: cellSize
 
+    function update(newLetter) {
+        letter = newLetter;
+        text.text = letter.toLowerCase();
+        cellText.text = letter;
+        mouseArea.enabled = true;
+    }
+
     MouseArea {
         id: mouseArea
 
@@ -27,7 +34,17 @@ Item {
 
         onPressed: console.log("Pressed:" + index)
         onReleased: {
-            parent = (tile.Drag.target !== null) ? tile.Drag.target : root
+            if (tile.Drag.target != null) {
+                var targetIndex = tile.Drag.target.cellIndex;
+                if (targetIndex != pieceIndex) {
+                    pieceRepeater.itemAt(targetIndex).update(pieceRepeater.itemAt(pieceIndex).letter);
+                    cellText.text = ' ';
+                    text.text = ' ';
+                    enabled = false;
+                    
+                    game.makeMove(root, pieceIndex, targetIndex);
+                }
+            }
         }
 
         Item {
@@ -42,6 +59,7 @@ Item {
             Drag.active: mouseArea.drag.active
             Drag.hotSpot.x: root.width / 2
             Drag.hotSpot.y: root.height / 2
+            Drag.source: tile
 
             Text {
                 id: text
@@ -54,6 +72,7 @@ Item {
                 verticalAlignment: Text.AlignVCenter
 
                 Text {
+                    id: cellText
                     anchors.fill: parent
                     color: Constants.SIDE_BLACK
                     font.family: parent.font.family

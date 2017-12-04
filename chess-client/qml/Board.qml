@@ -12,9 +12,9 @@ Item {
     height: 640
     width: 640
 
-    function clear() {
+    function update() {
         for (var i = 0; i < Constants.BOARD_SIZE * Constants.BOARD_SIZE; ++i) {
-            pieceRepeater.itemAt(i).letter = ""
+            pieceRepeater.itemAt(i).update(getLetter(i));
         }
     }
 
@@ -62,11 +62,16 @@ Item {
             DropArea {
                 id: dropArea
 
+                property int cellIndex: index
+
                 width: cellGrid.cellSize
                 height: width
 
-                onDropped: console.log("dropped")
-                onEntered: console.log("entered")
+                onEntered: { 
+                    if (!game.isPosibleMove(drag.source, cellIndex)) {
+                        drag.accepted = false;
+                    }
+                }
 
                 Rectangle {
                     id: cell
