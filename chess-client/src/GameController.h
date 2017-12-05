@@ -23,6 +23,5 @@ signals:
 private:
     Client::Chess::Board& board;
     QString pieces;
-    int moveColor;
     QObject *rootObject;
 };

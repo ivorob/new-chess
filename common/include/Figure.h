@@ -1,15 +1,11 @@
 #pragma once
 
 #include "GameObject.h"
+#include "GameConstants.h"
 
 namespace Chess {
 
 class Figure : public GameObject {
-public:
-    typedef enum {
-        White = 0,
-        Black,
-    } Color;
 public:
     Figure();
     Figure(const GameObject::ObjectId& id,

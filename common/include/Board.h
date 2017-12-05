@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "GameObject.h"
+#include "GameConstants.h"
 #include "Figure.h"
 
 namespace Chess {
@@ -10,10 +11,13 @@ namespace Chess {
 class Board : public GameObject {
 public:
     Board();
-    Board(uint32_t rows, uint32_t columns);
+    Board(uint32_t rows, uint32_t columns, Color color = Chess::Color::White);
 
     uint32_t getRows() const;
     uint32_t getColumns() const;
+
+    Chess::Color getMoveColor() const;
+    void setMoveColor(Color color);
 
     const Figure& getFigureById(const GameObject::ObjectId& id) const;
     void addFigure(const Figure& figure);
@@ -23,6 +27,7 @@ public:
 private:
     uint32_t rows;
     uint32_t columns;
+    Chess::Color color;
 protected:
     std::vector<Figure> figures;
 };

@@ -1,10 +1,10 @@
 #include <QDebug>
 #include "GameController.h"
+#include "GameConstants.h"
 
 GameController::GameController(Client::Chess::Board& board, QObject *parent)
     : QObject(parent),
       board(board),
-      moveColor(0),
       rootObject()
 {
     QObject::connect(&this->board, SIGNAL(boardChangedFromServer(const QString&)), this, SLOT(setPieces(const QString&)));
@@ -37,7 +37,7 @@ GameController::isPosibleMove(QObject *object, int cellIndex) const
     QObject *piece = object->parent()->parent();
     QString classId = piece->property("letter").toString();
     if (classId.toUpper() == classId) {
-        if (moveColor == 0) {
+        if (board.getMoveColor() == Chess::Color::White) {
             qDebug() << "TODO: validate cellIndex" << cellIndex;
             return true;
         }
@@ -47,7 +47,7 @@ GameController::isPosibleMove(QObject *object, int cellIndex) const
     } 
 
     qDebug() << "TODO: validate cellIndex" << cellIndex;
-    return moveColor == 1;
+    return board.getMoveColor() == Chess::Color::Black;
 }
 
 void
@@ -55,5 +55,9 @@ GameController::makeMove(QObject *object, int fromIndex, int toIndex)
 {
     board.moveFigure(7 - fromIndex / 8, fromIndex % 8, 7 - toIndex / 8, toIndex % 8);
     qDebug() << fromIndex << toIndex;
-    moveColor = (moveColor != 0) ? 0 : 1;
+    if (board.getMoveColor() != Chess::Color::White) {
+        board.setMoveColor(Chess::Color::White);
+    } else {
+        board.setMoveColor(Chess::Color::Black);
+    }
 }

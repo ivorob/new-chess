@@ -1,17 +1,20 @@
 #include <algorithm>
 #include "Board.h"
 #include "Figures.h"
+#include "GameConstants.h"
 
 Chess::Board::Board()
     : rows(),
-      columns()
+      columns(),
+      color(Chess::Color::White)
 {
 }
 
-Chess::Board::Board(uint32_t rows, uint32_t columns)
+Chess::Board::Board(uint32_t rows, uint32_t columns, Color color)
     : GameObject(0, "BOARD"),
       rows(rows),
-      columns(columns)
+      columns(columns),
+      color(color)
 {
     this->figures.reserve(32);
 }
@@ -62,12 +65,25 @@ Chess::Board::addFigure(const Figure& figure)
     }
 }
 
+Chess::Color
+Chess::Board::getMoveColor() const
+{
+    return this->color;
+}
+
+void
+Chess::Board::setMoveColor(Color color)
+{
+    this->color = color;
+}
+
 void
 Chess::Board::write(MemoryStream& stream) const
 {
     GameObject::write(stream);
     stream.write(getRows());
     stream.write(getColumns());
+    stream.write(getMoveColor());
     stream.write(static_cast<uint32_t>(this->figures.size()));
 
     for (const auto& figure : this->figures) {
@@ -83,6 +99,7 @@ Chess::Board::read(MemoryStream& stream)
     GameObject::read(stream);
     this->rows = stream.readUint32();
     this->columns = stream.readUint32();
+    this->color = static_cast<Chess::Color>(stream.readUint32());
     uint32_t size = stream.readUint32();
 
     for (uint32_t i = 0; i < size; ++i) {
@@ -107,36 +124,36 @@ Chess::createBoard()
 
     // white figures
     for (uint32_t i = 0; i < 8; ++i) {
-        board.addFigure(Chess::Pawn(++id, Chess::Figure::Color::White, 1, i));
+        board.addFigure(Chess::Pawn(++id, Chess::Color::White, 1, i));
     }
 
-    board.addFigure(Chess::Rook(++id, Chess::Figure::Color::White, 0, 0));
-    board.addFigure(Chess::Rook(++id, Chess::Figure::Color::White, 0, 7));
+    board.addFigure(Chess::Rook(++id, Chess::Color::White, 0, 0));
+    board.addFigure(Chess::Rook(++id, Chess::Color::White, 0, 7));
 
-    board.addFigure(Chess::Knight(++id, Chess::Figure::Color::White, 0, 1));
-    board.addFigure(Chess::Knight(++id, Chess::Figure::Color::White, 0, 6));
+    board.addFigure(Chess::Knight(++id, Chess::Color::White, 0, 1));
+    board.addFigure(Chess::Knight(++id, Chess::Color::White, 0, 6));
 
-    board.addFigure(Chess::Bishop(++id, Chess::Figure::Color::White, 0, 2));
-    board.addFigure(Chess::Bishop(++id, Chess::Figure::Color::White, 0, 5));
+    board.addFigure(Chess::Bishop(++id, Chess::Color::White, 0, 2));
+    board.addFigure(Chess::Bishop(++id, Chess::Color::White, 0, 5));
 
-    board.addFigure(Chess::Queen(++id, Chess::Figure::Color::White, 0, 3));
-    board.addFigure(Chess::King(++id, Chess::Figure::Color::White, 0, 4));
+    board.addFigure(Chess::Queen(++id, Chess::Color::White, 0, 3));
+    board.addFigure(Chess::King(++id, Chess::Color::White, 0, 4));
 
     for (uint32_t i = 0; i < 8; ++i) {
-        board.addFigure(Chess::Pawn(++id, Chess::Figure::Color::Black, 6, i));
+        board.addFigure(Chess::Pawn(++id, Chess::Color::Black, 6, i));
     }
 
-    board.addFigure(Chess::Rook(++id, Chess::Figure::Color::Black, 7, 0));
-    board.addFigure(Chess::Rook(++id, Chess::Figure::Color::Black, 7, 7));
+    board.addFigure(Chess::Rook(++id, Chess::Color::Black, 7, 0));
+    board.addFigure(Chess::Rook(++id, Chess::Color::Black, 7, 7));
 
-    board.addFigure(Chess::Knight(++id, Chess::Figure::Color::Black, 7, 1));
-    board.addFigure(Chess::Knight(++id, Chess::Figure::Color::Black, 7, 6));
+    board.addFigure(Chess::Knight(++id, Chess::Color::Black, 7, 1));
+    board.addFigure(Chess::Knight(++id, Chess::Color::Black, 7, 6));
 
-    board.addFigure(Chess::Bishop(++id, Chess::Figure::Color::Black, 7, 2));
-    board.addFigure(Chess::Bishop(++id, Chess::Figure::Color::Black, 7, 5));
+    board.addFigure(Chess::Bishop(++id, Chess::Color::Black, 7, 2));
+    board.addFigure(Chess::Bishop(++id, Chess::Color::Black, 7, 5));
 
-    board.addFigure(Chess::Queen(++id, Chess::Figure::Color::Black, 7, 3));
-    board.addFigure(Chess::King(++id, Chess::Figure::Color::Black, 7, 4));
+    board.addFigure(Chess::Queen(++id, Chess::Color::Black, 7, 3));
+    board.addFigure(Chess::King(++id, Chess::Color::Black, 7, 4));
 
     return board;
 }

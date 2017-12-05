@@ -26,7 +26,7 @@ Client::Chess::Board::updateState()
     for (const auto& figure : this->figures) {
         char letter = figure.getClassId()[0];
 
-        if (figure.getColor() == ::Chess::Figure::Color::Black) {
+        if (figure.getColor() == ::Chess::Color::Black) {
             letter += 0x20;
         }
 

@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
+
 #include "Figure.h"
+#include "GameConstants.h"
 
 TEST(FigureTest, create)
 {
@@ -48,19 +50,19 @@ TEST(FigureTest, setColumn)
 TEST(FigureTest, color)
 {
     Chess::Figure figure(0x12, "Q");
-    ASSERT_EQ(Chess::Figure::Color::White, figure.getColor());
+    ASSERT_EQ(Chess::Color::White, figure.getColor());
 
-    Chess::Figure figure1(0x13, "Q", 2, 2, Chess::Figure::Color::Black);
-    ASSERT_EQ(Chess::Figure::Color::Black, figure1.getColor());
+    Chess::Figure figure1(0x13, "Q", 2, 2, Chess::Color::Black);
+    ASSERT_EQ(Chess::Color::Black, figure1.getColor());
 }
 
 TEST(FigureTest, setColor)
 {
     Chess::Figure figure(0x12, "Q");
-    ASSERT_EQ(Chess::Figure::Color::White, figure.getColor());
+    ASSERT_EQ(Chess::Color::White, figure.getColor());
 
-    figure.setColor(Chess::Figure::Color::Black);
-    ASSERT_EQ(Chess::Figure::Color::Black, figure.getColor());
+    figure.setColor(Chess::Color::Black);
+    ASSERT_EQ(Chess::Color::Black, figure.getColor());
 }
 
 TEST(FigureTest, write)
@@ -69,7 +71,7 @@ TEST(FigureTest, write)
     const auto& data = stream.getData();
     ASSERT_TRUE(data.empty());
 
-    Chess::Figure figure(0x87, "ABC", 4, 6, Chess::Figure::Color::Black);
+    Chess::Figure figure(0x87, "ABC", 4, 6, Chess::Color::Black);
     figure.write(stream);
 
     std::string buffer("\x00\x87\x00\x00\x00\x01\x03\x00\x00\x00" "ABC\x00\x04\x00\x00\x00\x00\x06\x00\x00\x00\x00\x01\x00\x00\x00", 28);
@@ -88,5 +90,5 @@ TEST(FigureTest, read)
     ASSERT_EQ("ABC", figure.getClassId());
     ASSERT_EQ(4, figure.getRow());
     ASSERT_EQ(6, figure.getColumn());
-    ASSERT_EQ(Chess::Figure::Color::Black, figure.getColor());
+    ASSERT_EQ(Chess::Color::Black, figure.getColor());
 }

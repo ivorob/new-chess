@@ -44,14 +44,14 @@ Chess::Figure::setColumn(uint32_t column)
     this->column = column;
 }
 
-Chess::Figure::Color
+Chess::Color
 Chess::Figure::getColor() const
 {
     return this->color;
 }
 
 void
-Chess::Figure::setColor(Chess::Figure::Color color)
+Chess::Figure::setColor(Chess::Color color)
 {
     this->color = color;
 }
