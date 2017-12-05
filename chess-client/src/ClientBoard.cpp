@@ -30,14 +30,11 @@ Client::Chess::Board::updateState()
             letter += 0x20;
         }
 
-        newState[figure.getRow() * 8 + figure.getColumn()] = letter;
+        newState[56 - figure.getRow() * 8 + figure.getColumn()] = letter;
     }
 
-    QString reverseState;
-    std::reverse_copy(newState.begin(), newState.end(), std::back_inserter(reverseState));
-
-    if (reverseState != this->state) {
-        this->state = reverseState;
+    if (newState != this->state) {
+        this->state = newState;
         return true;
     }
 

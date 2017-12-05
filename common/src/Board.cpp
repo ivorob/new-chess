@@ -31,8 +31,8 @@ Chess::Board::getColumns() const
     return this->columns;
 }
 
-const Chess::Figure&
-Chess::Board::getFigureById(const GameObject::ObjectId& id) const
+Chess::Figure&
+Chess::Board::getFigureById(const GameObject::ObjectId& id)
 {
     const auto& it = std::find_if(
         this->figures.begin(),
@@ -75,6 +75,44 @@ void
 Chess::Board::setMoveColor(Color color)
 {
     this->color = color;
+}
+
+
+bool
+Chess::Board::moveFigure(uint32_t fromRow, uint32_t fromColumn, uint32_t toRow, uint32_t toColumn)
+{
+    for (auto& figure : this->figures) {
+        if (figure.getRow() == fromRow &&
+            figure.getColumn() == fromColumn)
+        {
+            figure.setRow(toRow);
+            figure.setColumn(toColumn);
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool
+Chess::Board::moveFigure(const GameObject::ObjectId& objectId, uint32_t toRow, uint32_t toColumn)
+{
+    const auto& it = std::find_if(
+        this->figures.begin(),
+        this->figures.end(),
+        [objectId] (const Figure& item) -> bool {
+            return objectId == item.getId();
+        }
+    );
+
+    if (it != this->figures.end()) {
+        it->setRow(toRow);
+        it->setColumn(toColumn);
+        return true;
+    }
+
+    return false;
 }
 
 void
