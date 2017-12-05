@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <list>
 
 #include "GameObject.h"
 #include "GameConstants.h"
@@ -28,11 +28,13 @@ public:
     bool moveFigure(uint32_t fromRow, uint32_t fromColumn, uint32_t toRow, uint32_t toColumn);
     bool moveFigure(const GameObject::ObjectId& objectId, uint32_t toRow, uint32_t toColumn);
 private:
+    std::list<Figure>::iterator getFigureByCoordinate(uint32_t row, uint32_t column);
+private:
     uint32_t rows;
     uint32_t columns;
     Chess::Color color;
 protected:
-    std::vector<Figure> figures;
+    std::list<Figure> figures;
 };
 
 class BoardException : public std::exception {

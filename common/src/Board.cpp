@@ -16,7 +16,6 @@ Chess::Board::Board(uint32_t rows, uint32_t columns, Color color)
       columns(columns),
       color(color)
 {
-    this->figures.reserve(32);
 }
 
 uint32_t
@@ -81,18 +80,35 @@ Chess::Board::setMoveColor(Color color)
 bool
 Chess::Board::moveFigure(uint32_t fromRow, uint32_t fromColumn, uint32_t toRow, uint32_t toColumn)
 {
-    for (auto& figure : this->figures) {
-        if (figure.getRow() == fromRow &&
-            figure.getColumn() == fromColumn)
-        {
-            figure.setRow(toRow);
-            figure.setColumn(toColumn);
-
-            return true;
+    auto fromIt = getFigureByCoordinate(fromRow, fromColumn);
+    if (fromIt != this->figures.end()) {
+        auto toIt = getFigureByCoordinate(toRow, toColumn);
+        if (toIt != this->figures.end()) {
+            this->figures.erase(toIt);
         }
+
+        fromIt->setRow(toRow);
+        fromIt->setColumn(toColumn);
     }
 
     return false;
+}
+
+std::list<Chess::Figure>::iterator
+Chess::Board::getFigureByCoordinate(uint32_t row, uint32_t column)
+{
+    auto it = this->figures.begin();
+    while (it != this->figures.end()) {
+        if (it->getRow() == row &&
+            it->getColumn() == column)
+        {
+            return it;
+        }
+
+        ++it;
+    }
+
+    return this->figures.end();
 }
 
 bool
@@ -107,6 +123,11 @@ Chess::Board::moveFigure(const GameObject::ObjectId& objectId, uint32_t toRow, u
     );
 
     if (it != this->figures.end()) {
+        auto toIt = getFigureByCoordinate(toRow, toColumn);
+        if (toIt != this->figures.end()) {
+            this->figures.erase(toIt);
+        }
+
         it->setRow(toRow);
         it->setColumn(toColumn);
         return true;

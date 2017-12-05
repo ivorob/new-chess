@@ -18,6 +18,7 @@ Item {
         text.text = letter.toLowerCase();
         cellText.text = letter;
         mouseArea.enabled = true;
+        whiteSide = text.text != cellText.text;
     }
 
     MouseArea {

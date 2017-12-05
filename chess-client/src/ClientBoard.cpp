@@ -34,6 +34,7 @@ Client::Chess::Board::updateState()
     }
 
     if (newState != this->state) {
+        qDebug() << "newState: " << newState;
         this->state = newState;
         return true;
     }
