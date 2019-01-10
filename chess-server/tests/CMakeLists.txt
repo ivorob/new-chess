@@ -15,6 +15,7 @@ SET (SOURCES
         ${SRC_DIR}/FiguresTest.cpp
         ${SRC_DIR}/BoardTest.cpp
         # COMMON SOURCES
+        ${COMMON_SRC_DIR}/MoveValidator.cpp
         ${COMMON_SRC_DIR}/MemoryStream.cpp
         ${COMMON_SRC_DIR}/GameObject.cpp
         ${COMMON_SRC_DIR}/Figure.cpp

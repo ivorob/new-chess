@@ -34,6 +34,7 @@ Chess::Client::serverHandler()
                     case PacketType::REPLICATION:
                         if (stream.pickByte() == 0) {
                             board.read(stream);
+                            board.makeMoveValidator();
                         } 
                         break;
                 }

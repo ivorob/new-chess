@@ -6,6 +6,7 @@ SET (COMMON_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../common/src)
 
 SET (SOURCES
         # common code
+        ${COMMON_SRC_DIR}/MoveValidator.cpp
         ${COMMON_SRC_DIR}/MemoryStream.cpp
         ${COMMON_SRC_DIR}/GameObject.cpp
         ${COMMON_SRC_DIR}/Board.cpp

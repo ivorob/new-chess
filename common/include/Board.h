@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "GameConstants.h"
 #include "Figure.h"
+#include "MoveValidator.h"
 
 namespace Chess {
 
@@ -27,6 +28,8 @@ public:
 
     bool moveFigure(uint32_t fromRow, uint32_t fromColumn, uint32_t toRow, uint32_t toColumn);
     bool moveFigure(const GameObject::ObjectId& objectId, uint32_t toRow, uint32_t toColumn);
+
+    MoveValidator makeMoveValidator() const;
 private:
     std::list<Figure>::iterator getFigureByCoordinate(uint32_t row, uint32_t column);
 private:

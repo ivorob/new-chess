@@ -168,6 +168,18 @@ Chess::Board::read(MemoryStream& stream)
     }
 }
 
+Chess::MoveValidator
+Chess::Board::makeMoveValidator() const
+{
+    MoveValidator validator;
+    for (const auto& figure : this->figures) {
+        validator.addFigure(figure);
+    }
+
+    validator.print(0);
+    return validator;
+}
+
 // BoardException
 Chess::BoardException::BoardException(const std::string& what)
     : std::exception(what.c_str())

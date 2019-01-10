@@ -11,6 +11,7 @@ SET (SOURCES
         ${SRC_DIR}/GameController.cpp
         ${SRC_DIR}/ClientBoard.cpp
         # Common
+        ${COMMON_SRC_DIR}/MoveValidator.cpp
         ${COMMON_SRC_DIR}/MemoryStream.cpp
         ${COMMON_SRC_DIR}/GameObject.cpp
         ${COMMON_SRC_DIR}/Figure.cpp
