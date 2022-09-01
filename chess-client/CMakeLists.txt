@@ -32,5 +32,4 @@ qt5_add_resources (RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/resources.qrc)
 
 ADD_EXECUTABLE (chess-client ${SOURCES} ${RESOURCES})
 TARGET_INCLUDE_DIRECTORIES (chess-client PRIVATE ${COMMON_INCLUDE_DIR})
-TARGET_LINK_LIBRARIES (chess-client Qt5::Quick Qt5::Qml Qt5::Widgets chess-server)
-SET_TARGET_PROPERTIES (chess-client PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE,5.02")
+TARGET_LINK_LIBRARIES (chess-client Qt5::Quick Qt5::Qml Qt5::Widgets chess-server pthread)

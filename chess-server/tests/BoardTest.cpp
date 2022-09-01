@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "Board.h"
-#include "figures.h"
+#include "Figures.h"
 #include "GameConstants.h"
 
 TEST(BoardTest, create)

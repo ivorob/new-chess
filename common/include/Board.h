@@ -40,7 +40,7 @@ protected:
     std::list<Figure> figures;
 };
 
-class BoardException : public std::exception {
+class BoardException : public std::runtime_error {
 public:
     BoardException(const std::string& what);
 };

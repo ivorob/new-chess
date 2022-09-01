@@ -16,7 +16,7 @@ public:
     void sendHeloPacket(const std::string& clientId) override;
     void sendStatePacket() override;
 
-    void Release();
+    void Release() override;
 private:
     PacketQueue& inQueue;
     PacketQueue& outQueue;

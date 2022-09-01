@@ -1,4 +1,5 @@
 #include <algorithm>
+
 #include "Board.h"
 #include "Figures.h"
 #include "GameConstants.h"
@@ -182,7 +183,7 @@ Chess::Board::makeMoveValidator() const
 
 // BoardException
 Chess::BoardException::BoardException(const std::string& what)
-    : std::exception(what.c_str())
+    : std::runtime_error(what.c_str())
 {
 }
 

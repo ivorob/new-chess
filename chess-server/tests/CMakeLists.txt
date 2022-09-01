@@ -29,10 +29,6 @@ SET (SOURCES
         ${COMMON_SRC_DIR}/figures/Rook.cpp
     )
 
-ADD_SUBDIRECTORY (
-    ${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty/googletest
-    ${CMAKE_CURRENT_BINARY_DIR}/thirdparty/googletest)
-
 ADD_EXECUTABLE (chess-server-tests ${SOURCES})
 TARGET_INCLUDE_DIRECTORIES (chess-server-tests PRIVATE ${COMMON_INCLUDE_DIR})
 TARGET_LINK_LIBRARIES (chess-server-tests gtest)
